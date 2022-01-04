@@ -1,8 +1,13 @@
 # Github Action for Lua and LuaJIT
 
-### `leafo/gh-actions-lua`
+Note that this is a fork from https://github.com/leafo/gh-actions-lua
 
-[![Actions Status](https://github.com/leafo/gh-actions-lua/workflows/test/badge.svg)](https://github.com/leafo/gh-actions-lua/actions)
+The only change is that this allows the version 'luajit-git' which will pull and build fresh master from 
+https://github.com/LuaJIT/LuaJIT
+
+### `qeffects/gh-actions-lua`
+
+[![Actions Status](https://github.com/qeffects/gh-actions-lua/workflows/test/badge.svg)](https://github.com/qeffects/gh-actions-lua/actions)
 
 **Update  Nov 18, 2020**: You must use version 8.0.0 or greater as GitHub has
 deprecated older versions of the actions core libraries.
@@ -22,13 +27,13 @@ Other Lua GitHub actions:
 Install Lua: (Will typically default to the latest release, 5.4.2 as of this readme)
 
 ```yaml
-- uses: leafo/gh-actions-lua@v8.0.0
+- uses: qeffects/gh-actions-lua@v8.0.1
 ```
 
 Install specific version of Lua:
 
 ```yaml
-- uses: leafo/gh-actions-lua@v8.0.0
+- uses: qeffects/gh-actions-lua@v8.0.1
   with:
     luaVersion: "5.1.5"
 ```
@@ -36,7 +41,7 @@ Install specific version of Lua:
 Install specific version of LuaJIT:
 
 ```yaml
-- uses: leafo/gh-actions-lua@v8.0.0
+- uses: qeffects/gh-actions-lua@v8.0.1
   with:
     luaVersion: "luajit-2.1.0-beta3"
 ```
@@ -82,7 +87,7 @@ Additional flags to pass to `make` when building Lua.
 Example value:
 
 ```yaml
-- uses: leafo/gh-actions-lua@master
+- uses: qeffects/gh-actions-lua@master
   with:
     luaVersion: 5.3
     luaCompileFlags: LUA_CFLAGS="-DLUA_INT_TYPE=LUA_INT_INT"
@@ -109,11 +114,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - uses: leafo/gh-actions-lua@v8.0.0
+    - uses: qeffects/gh-actions-lua@v8.0.0
       with:
         luaVersion: "5.1.5"
 
-    - uses: leafo/gh-actions-luarocks@v4.0.0
+    - uses: qeffects/gh-actions-luarocks@v4.0.0
 
     - name: build
       run: |
@@ -146,7 +151,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - uses: leafo/gh-actions-lua@v8.0.0
+    - uses: qeffects/gh-actions-lua@v8.0.0
       with:
         luaVersion: ${{ matrix.luaVersion }}
 
