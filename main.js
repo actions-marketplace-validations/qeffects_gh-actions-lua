@@ -86,6 +86,39 @@ async function install_luajit(luaInstallPath, luajitVersion) {
   })
 }
 
+async function install_luajit_git(luaInstallPath) {
+  const installPath = path.join(process.cwd(), INSTALL_PREFIX)
+  const luaCompileFlags = core.getInput('luaCompileFlags')
+
+  await io.mkdirP(installPath)
+
+  await exec.exec("git clone https://github.com/LuaJIT/LuaJIT.git", undefined, {
+    cwd: installPath
+  })
+
+  const compileFlagsArray = [ "-j" ]
+
+  if (isMacOS()) {
+    compileFlagsArray.push("MACOSX_DEPLOYMENT_TARGET=10.15")
+  }
+
+  if (luaCompileFlags) {
+    compileFlagsArray.push(luaCompileFlags)
+  }
+
+  await exec.exec("make", compileFlagsArray, {
+    cwd: path.join(installPath, "luajit2")
+  })
+
+  await exec.exec(`make -j install PREFIX="${luaInstallPath}"`, undefined, {
+    cwd: path.join(installPath, "luajit2")
+  })
+
+  await exec.exec("ln -s luajit lua", undefined, {
+    cwd: path.join(luaInstallPath, "bin")
+  })
+}
+
 async function install_plain_lua(luaInstallPath, luaVersion) {
   const luaExtractPath = path.join(process.cwd(), INSTALL_PREFIX, `lua-${luaVersion}`)
   const luaCompileFlags = core.getInput('luaCompileFlags')
@@ -126,6 +159,10 @@ async function install_plain_lua(luaInstallPath, luaVersion) {
 
 async function install(luaInstallPath, luaVersion) {
   if (luaVersion == "luajit-openresty") {
+    return await install_luajit_openresty(luaInstallPath)
+  }
+
+  if (luaVersion == "luajit-git") {
     return await install_luajit_openresty(luaInstallPath)
   }
 
