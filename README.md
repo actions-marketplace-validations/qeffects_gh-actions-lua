@@ -58,11 +58,13 @@ Examples of versions:
 * `"5.4.1"`
 * `"luajit-2.0.5"`
 * `"luajit-2.1.0-beta3"`
+* `"luajit-git"`
 * `"luajit-openresty"`
 
 The version specifies where the source is downloaded from:
 
 * `luajit-openresty` — will allways pull master from  https://github.com/openresty/luajit2
+* `luajit-git` — will allways pull master from  https://github.com/LuaJIT/LuaJIT
 * Anything starting with `luajit-` — from http://luajit.org/download.html
 * Anything else — from https://www.lua.org/ftp/
 
