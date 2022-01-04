@@ -163,7 +163,7 @@ async function install(luaInstallPath, luaVersion) {
   }
 
   if (luaVersion == "luajit-git") {
-    return await install_luajit_openresty(luaInstallPath)
+    return await install_luajit_git(luaInstallPath)
   }
 
   if (luaVersion.startsWith("luajit-")) {
